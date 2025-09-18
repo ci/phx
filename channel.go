@@ -234,7 +234,7 @@ func (c *Channel) On(event string, callback func(payload any)) (bindingRef Ref) 
 		event:    event,
 		callback: callback,
 	}
-	return
+	return bindingRef
 }
 
 // OnRef will register the given callback for all matching events only if the ref also matches.
@@ -251,7 +251,7 @@ func (c *Channel) OnRef(ref Ref, event string, callback func(payload any)) (bind
 		event:    event,
 		callback: callback,
 	}
-	return
+	return bindingRef
 }
 
 // OnJoin will register the given callback for whenever this Channel joins successfully to the server.

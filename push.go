@@ -111,22 +111,22 @@ func (p *Push) callCallbacks(payload any) {
 func (p *Push) deconstructPayload(payload any) (status string, response any, ok bool) {
 	m, ok := payload.(map[string]any)
 	if !ok {
-		return
+		return status, response, ok
 	}
 	statusRaw, ok := m["status"]
 	if !ok {
-		return
+		return status, response, ok
 	}
 	status, ok = statusRaw.(string)
 	if !ok {
-		return
+		return status, response, ok
 	}
 	response, ok = m["response"]
 	if !ok {
-		return
+		return status, response, ok
 	}
 
-	return
+	return status, response, ok
 }
 
 func (p *Push) trigger(status string, response any) {
