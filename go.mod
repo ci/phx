@@ -1,4 +1,4 @@
-module github.com/nshafer/phx
+module github.com/ci/phx
 
 go 1.18
 
