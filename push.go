@@ -149,6 +149,14 @@ func (p *Push) timeout() {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
+	// If a reply (ok/error) already arrived, ignore a late timeout.
+	if p.reply != nil {
+		return
+	}
+	// Extra safety: for join pushes, ignore timeout if the channel already joined.
+	if p.Event == string(JoinEvent) && p.channel.IsJoined() {
+		return
+	}
 	p.trigger("timeout", nil)
 }
 

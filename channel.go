@@ -124,6 +124,10 @@ func (c *Channel) Join() (*Push, error) {
 		c.rejoinTimer.Run()
 	})
 	joinPush.Receive("timeout", func(response any) {
+		// If an ok sneaked in just before this fired, don't tear the channel down.
+		if c.IsJoined() {
+			return
+		}
 		c.socket.Logger.Printf(LogError, "channel", "timeout joining channel '%v'", c.topic)
 		joinPush.reset()
 
